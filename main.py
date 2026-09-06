@@ -5,6 +5,7 @@ import math
 import gc
 from random import randrange, uniform, random, choice
 from eff import *
+import configuration
 from configuration import *
 
 import plasma
@@ -328,8 +329,6 @@ class EffectManager:
         - For 'timed' effects: set a random TIMEOUT_DURATION, let the effect honour it.
         - For 'full-run' effects: just let them do their thing once.
         """
-        global TIMEOUT_DURATION
-
         fx_index = self.current_effect          # 0-based
         fx_number = fx_index + 1                # 1–77
         fx_fn = effects[fx_index]
@@ -338,8 +337,9 @@ class EffectManager:
             # Full-run: effect controls its own duration completely.
             self.hsv_values = fx_fn(self.hsv_values, led_strip)
         else:
-            # Timed / ambient: push a random duration into the global timeout
-            TIMEOUT_DURATION = get_random_timeout_duration()
+            # Timed / ambient: push a random duration into the shared timeout
+            # (must go through the configuration module so eff.py sees the update too)
+            configuration.TIMEOUT_DURATION = get_random_timeout_duration()
             self.hsv_values = fx_fn(self.hsv_values, led_strip)
 
 

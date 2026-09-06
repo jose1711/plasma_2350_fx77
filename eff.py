@@ -25,6 +25,7 @@
 
 import time
 import math
+import configuration
 from configuration import *
 from random import random, randrange, uniform, choice
 
@@ -129,7 +130,7 @@ def effect_3(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             h, s, v = hsv_values[i]
             hsv_values[i] = (h, s, v * fade_rate)
@@ -155,7 +156,7 @@ def effect_4(hsv_values, led_strip):
     """Enhanced Breathe effect."""
     start_time = time.ticks_ms()
     
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(360):
             hue = t / 360.0
             brightness = (1 + math.sin(t * 2 * math.pi / 180)) / 2
@@ -174,7 +175,7 @@ def effect_5(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
     
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             h, s, v = hsv_values[i]
             hsv_values[i] = (h, s, v * fade_rate)
@@ -197,7 +198,7 @@ def effect_6(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
     
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(360):
             for i in range(NUM_LEDS):
                 brightness = 0
@@ -223,7 +224,7 @@ def effect_7(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
     
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(360):
             base_hue = (t * color_shift_speed) % 1.0
 
@@ -253,7 +254,7 @@ def effect_8(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for burst in active_bursts:
             burst["frame"] += 1
             burst["size"] += 1
@@ -297,7 +298,7 @@ def effect_9(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # --- FADE EVERYTHING SLIGHTLY EACH FRAME ---
         for i in range(NUM_LEDS):
             h, s, v = hsv_values[i]
@@ -318,7 +319,7 @@ def effect_9(hsv_values, led_strip):
 
             # LAUNCH PHASE: move from bottom (0) upwards to explosion_pos
             while (firework_phase == "launch" and
-                   time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION):
+                   time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION):
 
                 # Clear previous launch pixel (only if we moved at least 1)
                 if launch_pos > 0:
@@ -407,7 +408,7 @@ def effect_10(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
 
         # Arrays for blended values in ENVIRONMENT space
         blended_hue = [0.0] * NUM_LEDS
@@ -478,7 +479,7 @@ def effect_11(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             hsv_values[i] = (
                 hsv_values[i][0], 
@@ -539,7 +540,7 @@ def effect_12(hsv_values, led_strip):
     # -----------------------------
     # STACKING PHASE
     # -----------------------------
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # If stack reaches the sky, stop stacking
         if stacked_height >= NUM_LEDS - 1:
             break
@@ -568,7 +569,7 @@ def effect_12(hsv_values, led_strip):
 
         # Fall loop: move block down towards env 0
         while (bottom_env > stacked_height + 1 and
-               time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION):
+               time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION):
 
             # FULL FRAME RENDER (no flashing):
             # For each env pixel, show either stacked block color or falling block.
@@ -672,7 +673,7 @@ def effect_13(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Spawn new drops near the "sky" (upper half → top)
         if len(drops) < num_drops and uniform(0, 1) < 0.5:
             start_pos = randrange(NUM_LEDS // 2, NUM_LEDS)  # upper half of env strip
@@ -737,7 +738,7 @@ def effect_14(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(360):
             for i in range(NUM_LEDS):
                 wave_position = (i + t * speed) % wave_length
@@ -768,7 +769,7 @@ def effect_15(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Step 1: Cool down each "cell" a little
         for i in range(NUM_LEDS):
             cooldown = randrange(0, ((cooling * 10) // NUM_LEDS) + 2)
@@ -838,14 +839,14 @@ def effect_16(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # In ENV space, always start at the logical TOP and fall towards logical BOTTOM
         position = NUM_LEDS - 1   # ENV top
         step = -1                 # move towards ENV index 0
 
         speed = speed_delay
 
-        while 0 <= position < NUM_LEDS and time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+        while 0 <= position < NUM_LEDS and time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
             # Clear the LED strip in ENV space
             for env_i in range(NUM_LEDS):
                 set_rgb_env(env_i, 0, 0, 0, led_strip)
@@ -892,7 +893,7 @@ def effect_17(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for particle in particles:
             particle["position"] += particle["velocity"]
             if randrange(100) < quantum_jump_chance * 100:
@@ -922,7 +923,7 @@ def effect_18(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             # Generate a hue value using a combination of sine and cosine waves
             hue = (math.sin(i * scale + time_offset) + 1) / 2  # Map sine output to [0, 1]
@@ -958,7 +959,7 @@ def effect_19(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Set the background
         for i in range(NUM_LEDS):
             hsv_values[i] = (background_hue, background_saturation, background_value)
@@ -991,7 +992,7 @@ def effect_20(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for wave in waves:
             wave["position"] += wave_speed * wave["direction"]
             if wave["position"] >= NUM_LEDS or wave["position"] <= 0:
@@ -1017,7 +1018,7 @@ def effect_21(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Cool down each LED's heat intensity
         for i in range(NUM_LEDS):
             cooldown = randrange(int(cooling * 100))  # Ensure cooldown is an integer
@@ -1054,7 +1055,7 @@ def effect_22(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             # Create a smooth pulsating effect
             brightness = min_brightness + (max_brightness - min_brightness) * (0.5 + 0.5 * math.sin(time.ticks_ms() * pulse_speed))
@@ -1076,7 +1077,7 @@ def effect_23(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Reset all LEDs to the dark state (off)
         for i in range(NUM_LEDS):
             hsv_values[i] = (0.0, 0.0, 0.0)  # Turn off all LEDs
@@ -1116,7 +1117,7 @@ def effect_24(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             hue_variation = math.sin(i * amplitude + time.ticks_ms() * wave_speed) * 0.1
             hue = (base_hue + hue_variation) % 1.0
@@ -1144,7 +1145,7 @@ def effect_25(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for wave in shockwaves:
             wave["radius"] += shockwave_speed
             if wave["radius"] > NUM_LEDS:
@@ -1176,7 +1177,7 @@ def effect_26(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             angle = (i * spiral_tightness + time.ticks_ms() * vortex_speed) % (2 * math.pi)
             hue = (0.5 + math.sin(angle) * hue_variation) % 1.0
@@ -1197,7 +1198,7 @@ def effect_27(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for particle in dust_particles:
             particle["position"] = (particle["position"] + swirl_speed) % NUM_LEDS
             if randrange(100) < 5:
@@ -1370,7 +1371,7 @@ def effect_28(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
 
         now = time.ticks_ms()
 
@@ -1493,7 +1494,7 @@ def effect_29(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # --- Fade all LEDs slightly (in env space) ---
         for env_i in range(NUM_LEDS):
             h, s, v = hsv_values[env_i]
@@ -1536,7 +1537,7 @@ def effect_30(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         t = time.ticks_diff(time.ticks_ms(), start_time) / 1000.0  # seconds since start
 
         for i in range(NUM_LEDS):
@@ -1558,7 +1559,7 @@ def effect_31(hsv_values, led_strip):
 
     start_time = time.ticks_ms()  # Start time for the effect
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS * 2):  # Loop to animate the wave
             for i in range(NUM_LEDS):
                 hue = (i % 360) / 360.0
@@ -1581,7 +1582,7 @@ def effect_32(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             h_prev, s_prev, v_prev = hsv_values[i]
 
@@ -1614,7 +1615,7 @@ def effect_33(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Fade existing pixels
         for i in range(NUM_LEDS):
             h, s, v = hsv_values[i]
@@ -1648,7 +1649,7 @@ def effect_34(hsv_values, led_strip):
     offset = 0
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             band_index = ((i + offset) // BAND_WIDTH)
             hue = (band_index % 6) / 6.0
@@ -1686,7 +1687,7 @@ def effect_35(hsv_values, led_strip):
     # Start the meteor head just above the logical TOP so it "enters" the strip
     head_env = NUM_LEDS - 1 + meteor_length
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # -------------------------
         # 1) Fade existing pixels
         # -------------------------
@@ -1735,7 +1736,7 @@ def effect_36(hsv_values, led_strip):
 
     start_time = time.ticks_ms()  # Record the start time
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         elapsed = time.ticks_diff(time.ticks_ms(), start_time) / 1000  # Time in seconds
         for i in range(NUM_LEDS):
             # Calculate the distance from the center
@@ -1766,7 +1767,7 @@ def effect_37(hsv_values, led_strip):
 
     start_time = time.ticks_ms()  # Record the start time
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         elapsed = time.ticks_diff(time.ticks_ms(), start_time) / 1000  # Time in seconds
         
         for i in range(NUM_LEDS):
@@ -1799,7 +1800,7 @@ def effect_38(hsv_values, led_strip):
 
     start_time = time.ticks_ms()  # Record the start time
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         elapsed = time.ticks_diff(time.ticks_ms(), start_time) / 1000  # Time in seconds
 
         for i in range(NUM_LEDS):
@@ -1886,7 +1887,7 @@ def effect_39(hsv_values, led_strip):
     # Ghosts: each = {"pos": float, "hue": float, "brightness": float, "drift": float}
     ghosts = []
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # -----------------------------------
         # 1) Fade background
         # -----------------------------------
@@ -2106,10 +2107,10 @@ def effect_41(hsv_values, led_strip):
     # We will repeatedly sweep the comet across the whole env space
     # head_env runs from -comet_length (fully off one side)
     # up to NUM_LEDS + comet_length (fully off the opposite side)
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for head_env in range(-comet_length, NUM_LEDS + comet_length):
             # Abort this sweep early if timeout is hit mid-animation
-            if time.ticks_diff(time.ticks_ms(), start_time) >= TIMEOUT_DURATION:
+            if time.ticks_diff(time.ticks_ms(), start_time) >= configuration.TIMEOUT_DURATION:
                 break
 
             for env_i in range(NUM_LEDS):
@@ -2139,7 +2140,7 @@ def effect_42(hsv_values, led_strip):
     start_time = time.ticks_ms()
     direction = 1  # Initial direction for hue shift
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS * 2):
             if randrange(100) < 10:  # 10% chance to change direction
                 direction = -direction
@@ -2172,7 +2173,7 @@ def effect_43(hsv_values, led_strip):
     SPEED = 0.003         # affects how fast phase moves
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         t = time.ticks_diff(time.ticks_ms(), start_time)
         for i in range(NUM_LEDS):
             phase = (i * 2 * math.pi / WAVE_LENGTH) + (t * SPEED)
@@ -2193,7 +2194,7 @@ def effect_44(hsv_values, led_strip):
     SPEED = 0.006   # movement speed
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         t = time.ticks_diff(time.ticks_ms(), start_time)
 
         for env_i in range(NUM_LEDS):
@@ -2223,7 +2224,7 @@ def effect_45(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         next_state = [0] * NUM_LEDS
 
         for i in range(NUM_LEDS):
@@ -2258,7 +2259,7 @@ def effect_46(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS + comet_length):
             for i in range(NUM_LEDS):
                 distance = t - i
@@ -2288,7 +2289,7 @@ def effect_47(hsv_values, led_strip):
     start_time = time.ticks_ms()
     base_hue = random()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         t_ms = time.ticks_diff(time.ticks_ms(), start_time)
         t = t_ms * SPEED
 
@@ -2325,7 +2326,7 @@ def effect_48(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Optional: fade existing content slightly instead of hard clearing
         # so this effect can blend with previous ones better.
         # Comment OUT this block if you want hard black outside the wave.
@@ -2383,7 +2384,7 @@ def effect_49(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Fade the entire strip slightly to create a smooth trailing effect
         for i in range(NUM_LEDS):
             hsv_values[i] = (hsv_values[i][0], hsv_values[i][1], hsv_values[i][2] * fade_factor)
@@ -2427,7 +2428,7 @@ def effect_50(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Fade the entire strip slightly to create trailing effects
         for i in range(NUM_LEDS):
             hsv_values[i] = (hsv_values[i][0], hsv_values[i][1], hsv_values[i][2] * fade_factor)
@@ -2468,7 +2469,7 @@ def effect_51(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             # Calculate the hue based on position and time
             position_offset = (i / NUM_LEDS) * math.pi * 2
@@ -2497,7 +2498,7 @@ def effect_52(hsv_values, led_strip):
     """Fireworks Burst"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(50):
             center = randrange(NUM_LEDS)
             for i in range(NUM_LEDS):
@@ -2514,7 +2515,7 @@ def effect_53(hsv_values, led_strip):
     """Explosion"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS // 2):
             center = NUM_LEDS // 2
             for i in range(NUM_LEDS):
@@ -2531,7 +2532,7 @@ def effect_54(hsv_values, led_strip):
     """Larson Scanner (Knight Rider)"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS * 2):
             position = t % NUM_LEDS if t < NUM_LEDS else NUM_LEDS - (t % NUM_LEDS) - 1
             for i in range(NUM_LEDS):
@@ -2565,7 +2566,7 @@ def effect_55(hsv_values, led_strip):
     embers = []  # each: {"pos": float, "hue": float, "brightness": float, "decay": float}
 
     def time_left():
-        return time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION
+        return time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION
 
     while time_left():
         # Pick a new hue band for THIS comet
@@ -2734,7 +2735,7 @@ def effect_56(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Fade the entire strip slightly to create trailing effects
         for i in range(NUM_LEDS):
             hsv_values[i] = (hsv_values[i][0], hsv_values[i][1], hsv_values[i][2] * fade_factor)
@@ -2773,7 +2774,7 @@ def effect_57(hsv_values, led_strip):
     """Colorful Larson Scanner"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS * 2):
             position = t % NUM_LEDS if t < NUM_LEDS else NUM_LEDS - (t % NUM_LEDS) - 1
             hue = t % 360 / 360.0
@@ -2788,7 +2789,7 @@ def effect_58(hsv_values, led_strip):
     """Rapid Fireworks"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(20):
             burst_center = randrange(NUM_LEDS)
             hue = randrange(360) / 360.0
@@ -2804,7 +2805,7 @@ def effect_59(hsv_values, led_strip):
     """Starry Night"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for _ in range(100):
             index = randrange(NUM_LEDS)
             hue = randrange(360) / 360.0
@@ -2818,7 +2819,7 @@ def effect_60(hsv_values, led_strip):
     """Meteor Shower"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS):
             for i in range(NUM_LEDS):
                 hue = 0.6
@@ -2832,7 +2833,7 @@ def effect_61(hsv_values, led_strip):
     """Random Sparkles"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for _ in range(NUM_LEDS // 10):
             index = randrange(NUM_LEDS)
             hue = randrange(360) / 360.0
@@ -2846,7 +2847,7 @@ def effect_62(hsv_values, led_strip):
     """Fireflies"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS):
             index = randrange(NUM_LEDS)
             hue = randrange(360) / 360.0
@@ -2863,7 +2864,7 @@ def effect_63(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS):
             # Alternate between red and white based on position
             if t % 2 == 0:
@@ -2894,7 +2895,7 @@ def effect_64(hsv_values, led_strip):
     snake_length = 10
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS * 2):
             for i in range(NUM_LEDS):
                 hue = (i * 10) % 360 / 360.0
@@ -2909,7 +2910,7 @@ def effect_65(hsv_values, led_strip):
     comet_length = 15
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS * 2):
             for i in range(NUM_LEDS):
                 hue = (i * 10) % 360 / 360.0
@@ -2923,7 +2924,7 @@ def effect_66(hsv_values, led_strip):
     """Twinkling Stars"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS):
             index = randrange(NUM_LEDS)
             hue = randrange(360) / 360.0
@@ -2937,7 +2938,7 @@ def effect_67(hsv_values, led_strip):
     """Thunderstorm"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS):
             brightness = 1.0 if randrange(100) < 10 else 0.0
             hsv_values[t] = (0.0, 0.0, brightness)
@@ -2949,7 +2950,7 @@ def effect_68(hsv_values, led_strip):
     """Flickering Candle"""
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for t in range(NUM_LEDS):
             hue = 0.1
             brightness = uniform(0.7, 1.0)
@@ -2972,7 +2973,7 @@ def effect_69(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         now = time.ticks_ms()
 
         for env_i in range(NUM_LEDS):
@@ -3028,7 +3029,7 @@ def effect_70(hsv_values, led_strip):
 
     offset = 0  # Initialize offset for scrolling
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             # Calculate the position with offset
             position = (i + offset) % (2 * BAR_LENGTH)
@@ -3060,7 +3061,7 @@ def effect_71(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             brightness_levels[i] *= fade_factor
 
@@ -3100,7 +3101,7 @@ def effect_72(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         for i in range(NUM_LEDS):
             brightness_levels[i] *= fade_factor
 
@@ -3150,7 +3151,7 @@ def effect_73(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Dim all LEDs slightly to create fading trails
         for i in range(NUM_LEDS):
             hsv_values[i] = (hsv_values[i][0], hsv_values[i][1], hsv_values[i][2] * FADE_FACTOR)
@@ -3202,7 +3203,7 @@ def effect_74(hsv_values, led_strip):
 
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Dim all LEDs slightly to create fading trails
         for i in range(NUM_LEDS):
             hsv_values[i] = (
@@ -3238,7 +3239,7 @@ def effect_75(hsv_values, led_strip):
     start_time = time.ticks_ms()
 
     # Main effect loop
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         speed = uniform(0.05, 0.3)  # Random speed for effect transitions
         fade_factor = uniform(0.7, 0.95)  # Determines how colors fade over time
         brightness_variation = uniform(0.4, 1.0)  # Brightness variation factor
@@ -3250,7 +3251,7 @@ def effect_75(hsv_values, led_strip):
 
         # Animation loop for smooth color transitions
         for t in range(NUM_LEDS * 5):
-            if time.ticks_diff(time.ticks_ms(), start_time) > TIMEOUT_DURATION:
+            if time.ticks_diff(time.ticks_ms(), start_time) > configuration.TIMEOUT_DURATION:
                 break
 
             for i in range(NUM_LEDS):
@@ -3277,7 +3278,7 @@ def effect_75(hsv_values, led_strip):
 def effect_76(hsv_values, led_strip):
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         # Ensure all variables are defined before use
         pattern_type = choice([
             'wave', 'sparkle', 'chase', 'pulse', 'subtle_rainbow',
@@ -3298,7 +3299,7 @@ def effect_76(hsv_values, led_strip):
         hues = sorted([randrange(360) / 360.0 for _ in range(num_hues)])
 
         for t in range(NUM_LEDS * 10):
-            if time.ticks_diff(time.ticks_ms(), start_time) > TIMEOUT_DURATION:
+            if time.ticks_diff(time.ticks_ms(), start_time) > configuration.TIMEOUT_DURATION:
                 break
 
             for i in range(NUM_LEDS):
@@ -3338,7 +3339,7 @@ def effect_76(hsv_values, led_strip):
 def effect_77(hsv_values, led_strip):
     start_time = time.ticks_ms()
 
-    while time.ticks_diff(time.ticks_ms(), start_time) < TIMEOUT_DURATION:
+    while time.ticks_diff(time.ticks_ms(), start_time) < configuration.TIMEOUT_DURATION:
         speed = uniform(0.01, 0.2)
         hue_shift = uniform(0.01, 0.1)
         brightness_variation = uniform(0.5, 1.0)
@@ -3358,7 +3359,7 @@ def effect_77(hsv_values, led_strip):
         ])
 
         for t in range(NUM_LEDS * 10):
-            if time.ticks_diff(time.ticks_ms(), start_time) > TIMEOUT_DURATION:
+            if time.ticks_diff(time.ticks_ms(), start_time) > configuration.TIMEOUT_DURATION:
                 break
 
             for i in range(NUM_LEDS):
